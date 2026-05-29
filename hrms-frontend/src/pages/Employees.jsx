@@ -112,12 +112,14 @@ function Employees() {
                 }}
             />
 
-            <div style={{
-                display: "flex",
-                gap: "20px",
-                flexWrap: "wrap"
-            }}>
-
+            <div
+                style={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: "20px",
+                    justifyContent: "center"
+                }}
+            >
                 {
                     employees.map((employee) => (
                         <EmployeeCard
@@ -131,7 +133,6 @@ function Employees() {
                         />
                     ))
                 }
-
             </div>
         </div>
     );
