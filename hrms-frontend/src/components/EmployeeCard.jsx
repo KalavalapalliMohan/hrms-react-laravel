@@ -59,7 +59,7 @@ function EmployeeCard(props) {
           cursor: "pointer",
         }}
       >
-        Delete
+        Remove
       </button>
     </div>
   );
