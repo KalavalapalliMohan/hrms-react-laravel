@@ -50,3 +50,58 @@ Started developing the React frontend for the Laravel HRMS system. Completed the
 
 To improve React fundamentals by building a simple Employee Management UI using reusable components and dynamic rendering.
 
+# HRMS API V2 - Day 3 Progress
+
+## React
+
+### Topics Covered
+
+* Axios
+* API Calling
+* useEffect Hook
+* Fetch Data from API
+
+### Completed Tasks
+
+* Integrated Axios for API requests
+* Fetched employee data from API
+* Displayed API data in React components
+* Practiced useEffect for handling side effects
+
+## Laravel
+
+### Project Setup
+
+* Created HRMS API V2 Project
+* Configured database connection
+* Created Employee Model and Migration
+
+### Sanctum
+
+* Setup Laravel Sanctum for API Authentication
+* Configured authentication middleware
+
+## Employee Module
+
+### Database Fields
+
+* Name
+* Email
+* Phone
+* Department
+* Designation
+* Status
+
+## Learning Outcome
+
+* Understanding API integration in React
+* Working with Axios and useEffect
+* Building REST API structure in Laravel
+* Setting up authentication using Sanctum
+
+## Next Steps
+
+* Create Employee CRUD APIs
+* Connect React with Laravel APIs
+* Implement Authentication Flow
+* Build Employee Management Module
