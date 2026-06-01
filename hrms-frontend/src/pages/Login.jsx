@@ -1,4 +1,18 @@
+import React, { useState } from "react";
+
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log("Email:", email);
+    console.log("Password:", password);
+
+    alert("Form Submitted");
+  }
+
   return (
     <div
       style={{
@@ -16,11 +30,18 @@ function Login() {
           borderRadius: "10px",
         }}
       >
+
+        <form 
+          onSubmit={handleSubmit}
+        >
+
         <h2>Login</h2>
 
         <input
           type="email"
           placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           style={{
             width: "100%",
             padding: "10px",
@@ -32,6 +53,8 @@ function Login() {
         <input
           type="password"
           placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           style={{
             width: "100%",
             padding: "10px",
@@ -41,6 +64,7 @@ function Login() {
         />
 
         <button
+          type="submit"
           style={{
             width: "100%",
             padding: "10px",
@@ -53,6 +77,7 @@ function Login() {
         >
           Login
         </button>
+        </form>
       </div>
     </div>
   );
