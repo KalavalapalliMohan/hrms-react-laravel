@@ -4,6 +4,16 @@ import EmployeeCard from "../components/EmployeeCard";
 
 function Employees() {
     const [employees, setEmployees] = useState([]);
+
+    const [formData, setFormData] = useState({
+      name: "",
+      email: "",
+      phone: "",
+      department: "",
+      designation: "",
+      status: ""
+    });
+
     useEffect(() => {
         axios
         .get("https://jsonplaceholder.typicode.com/users")
@@ -14,6 +24,37 @@ function Employees() {
             console.log(error);
         });
     }, []);
+
+    const handleChange = (e) => {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value
+      });
+    }
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+
+      const newEmployee = {
+        id: employees.length + 1,
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        department: formData.department,
+        designation: formData.designation,
+        status: formData.status
+      };
+
+      setEmployees([...employees, newEmployee]);
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        department: "",
+        designation: "",
+        status: ""
+      });
+    };
 
 
     // return (
@@ -46,7 +87,7 @@ function Employees() {
     //                     <EmployeeCard
     //                         key={employee.id}
     //                         name={employee.name}
-    //                         department="Developer"
+    //                         department={employee.department}
     //                         email={employee.email}
     //                         salary="₹50,000"
     //                         status= {employee.id % 2 === 0 ? "Active" : "Inactive"}
@@ -60,8 +101,64 @@ function Employees() {
 
     return (
   <div style={{ padding: "20px" }}>
-    <h1>Employees</h1>
+    <h1>Employees Management</h1>
 
+    {/* Form */}
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="name"
+          placeholder="Employee Name"
+          value={formData.name}
+          onChange={handleChange}
+        />
+
+        <input
+          type="email"
+          name="email"
+          placeholder="Employee Email"
+          value={formData.email}
+          onChange={handleChange}
+        />
+
+        <input
+          type="text"
+          name="phone"
+          placeholder="Employee Phone"
+          value={formData.phone}
+          onChange={handleChange}
+        />
+
+        <input
+          type="text"
+          name="department"
+          placeholder="Department"
+          value={formData.department}
+          onChange={handleChange}
+        />
+
+        <input
+          type="text"
+          name="designation"
+          placeholder="Designation"
+          value={formData.designation}
+          onChange={handleChange}
+        />
+
+        <input
+          type="text"
+          name="status"
+          placeholder="Status"
+          value={formData.status}
+          onChange={handleChange}
+        />
+
+        <button type="submit">Add Employee</button>
+      </form>
+
+      <br />
+
+    {/* Table */}
     <table
       border="1"
       cellPadding="10"
@@ -75,7 +172,9 @@ function Employees() {
           <th>Name</th>
           <th>Email</th>
           <th>Phone</th>
-          <th>Company</th>
+          <th>Department</th>
+          <th>Designation</th>
+          <th>Status</th>
         </tr>
       </thead>
 
@@ -85,7 +184,9 @@ function Employees() {
             <td>{employee.name}</td>
             <td>{employee.email}</td>
             <td>{employee.phone}</td>
-            <td>{employee.company.name}</td>
+            <td>{employee.department}</td>
+            <td>{employee.designation}</td>
+            <td>{employee.status}</td>
           </tr>
         ))}
       </tbody>

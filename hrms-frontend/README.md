@@ -14,3 +14,263 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+
+
+# Day 1 – React Learning Journey 🚀
+
+## Today's Goal
+Understand React basics and create a simple HRMS UI.
+
+## Topics Covered
+
+✅ React Project Setup  
+✅ Understanding Components  
+✅ JSX Basics  
+✅ Login Page UI Design  
+✅ Dashboard UI Design  
+
+## Project Features
+
+### Login Page
+- Email Input
+- Password Input
+- Login Button
+- Simple Responsive Layout
+
+### Dashboard Page
+- Header/Navbar
+- Welcome Section
+- Employee Statistics Cards
+- Basic Dashboard Layout
+
+## Technologies Used
+- React.js
+- JavaScript (ES6+)
+- JSX
+- CSS
+
+## Learning Outcomes
+- Learned how React applications are structured.
+- Understood reusable components.
+- Practiced writing JSX.
+- Built a simple HRMS user interface.
+- Improved frontend development skills.
+
+## Next Steps
+Day 2:
+- React Hooks
+- useState
+- Forms Handling
+- Employee Add Form
+- Employee List UI
+
+## Author
+
+
+# Day 2 – React Learning Journey 🚀
+
+## Today's Goal
+Learn React Props, State, useState Hook, and Dynamic UI Rendering.
+
+## Topics Covered
+
+✅ Props  
+✅ State  
+✅ useState Hook  
+✅ Dynamic UI Rendering  
+
+## Practice Completed
+
+### Props
+- Passed data from parent component to child component
+- Reused components with different data
+
+### State
+- Understood component state management
+- Managed dynamic data inside components
+
+### useState Hook
+- Created state variables
+- Updated state using setter functions
+- Handled user interactions
+
+### Dynamic UI Rendering
+- Rendered data dynamically on the screen
+- Updated UI based on state changes
+- Displayed lists and conditional content
+
+## Technologies Used
+- React.js
+- JavaScript (ES6+)
+- JSX
+
+## Learning Outcomes
+- Learned how Props help components communicate.
+- Understood State management in React.
+- Practiced using the useState Hook.
+- Built dynamic and interactive user interfaces.
+- Improved React fundamentals.
+
+## Next Steps
+### Day 3 Goals
+- Axios
+- API Calling
+- useEffect Hook
+- Fetch Data from API
+- Connect React with Laravel Backend
+
+## Author
+
+
+# Day 3 – React Learning Journey 🚀
+
+## Today's Goal
+Learn API integration in React using Axios, understand the useEffect Hook, and fetch data from APIs.
+
+## Topics Covered
+
+✅ Axios Setup  
+✅ API Calling  
+✅ useEffect Hook  
+✅ Fetch Data from API  
+✅ Display API Data in UI  
+
+## Practice Completed
+
+### Axios
+- Installed and configured Axios
+- Made GET requests to APIs
+- Handled API responses and errors
+
+### API Calling
+- Connected React application with backend APIs
+- Retrieved data from API endpoints
+- Managed asynchronous operations
+
+### useEffect Hook
+- Understood component lifecycle behavior
+- Used useEffect for API calls
+- Controlled side effects in React components
+
+### Fetch Data from API
+- Fetched employee data from API
+- Stored response data in state
+- Rendered dynamic data on the screen
+
+## Technologies Used
+- React.js
+- Axios
+- JavaScript (ES6+)
+- JSX
+
+## Learning Outcomes
+- Learned how frontend and backend communicate through APIs.
+- Understood Axios for handling HTTP requests.
+- Practiced using the useEffect Hook.
+- Built dynamic UI using API data.
+- Improved React and API integration skills.
+
+## Next Steps
+### Day 4 Goals
+- Laravel API Authentication
+- Laravel Sanctum
+- Register API
+- Login API
+- Logout API
+- Profile API
+
+## Author
+Mohan
+
+
+# Day 4 – React Forms Learning Journey 🚀
+
+## Today's Goal
+Learn React Forms and Controlled Components.
+
+## Topics Covered
+
+✅ Forms in React  
+✅ Controlled Components  
+✅ Handling User Input  
+✅ Form Submission  
+✅ State Management with useState  
+
+## Practice Completed
+
+### Forms
+- Created form elements using React
+- Added input fields and submit buttons
+- Managed form submissions
+
+### Controlled Components
+- Connected form inputs with React state
+- Updated state using user input
+- Maintained a single source of truth for form data
+
+### User Input Handling
+- Captured text input values
+- Handled change events
+- Managed multiple form fields
+
+### Form Submission
+- Prevented default form behavior
+- Processed form data on submit
+- Displayed entered information dynamically
+
+## Technologies Used
+- React.js
+- JavaScript (ES6+)
+- JSX
+- useState Hook
+
+## Learning Outcomes
+- Learned how forms work in React.
+- Understood the concept of Controlled Components.
+- Practiced managing form data using state.
+- Improved event handling skills.
+- Built interactive and dynamic form-based UI.
+
+## Next Steps
+
+### Day 5 Goals
+- Employee Add Form
+- Form Validation
+- Props & State Revision
+- Employee List Rendering
+- Basic CRUD UI
+
+## Author
+Mohan
+
+
+# Day 5 Goal - React Forms
+
+## Topics Covered
+
+- React Forms
+- useState
+- Controlled Components
+- onChange Event
+- onSubmit Event
+
+## Features Built
+
+✅ Employee Add Form
+
+- Name
+- Email
+- Department
+- Submit Button
+
+✅ Employee Table View
+
+- Display Employee Data
+- Add New Employee Locally
+- Dynamic Rendering using map()
+
+## Note
+
+Currently the form works with React State only.
+API Integration will be added in upcoming days using Laravel Backend.
