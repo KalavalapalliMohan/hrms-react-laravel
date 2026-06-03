@@ -1,16 +1,32 @@
 import { useState } from "react";
+import axios from "axios";
 import Image from "../assets/mohan.jpeg";
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
     const [showDropdown, setShowDropdown] = useState(false);
+    const navigate = useNavigate();
 
-    const handleLogout = () => {
-        alert("Logout clicked");
+const handleLogout = async () => {
+    const token = localStorage.getItem("token");
 
-        // Example:
-        // localStorage.removeItem("token");
-        // window.location.href = "/login";
-    };
+    try {
+        await axios.post(
+            "http://127.0.0.1:8000/api/logout",
+            {},
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+
+        localStorage.removeItem("token");
+        navigate("/");
+    } catch (error) {
+        console.log(error.response?.data);
+    }
+};
 
     return (
         <div
@@ -73,8 +89,8 @@ function Navbar() {
                             overflow: "hidden"
                         }}
                     >
-                        <a
-                            href="/profile"
+                        <Link
+                            to="/profile"
                             style={{
                                 display: "block",
                                 padding: "12px",
@@ -84,10 +100,10 @@ function Navbar() {
                             }}
                         >
                             Profile
-                        </a>
+                        </Link>
 
-                        <a
-                            href="/settings"
+                        <Link
+                            to="/settings"
                             style={{
                                 display: "block",
                                 padding: "12px",
@@ -97,7 +113,7 @@ function Navbar() {
                             }}
                         >
                             Settings
-                        </a>
+                        </Link>
 
                         <div
                             onClick={handleLogout}

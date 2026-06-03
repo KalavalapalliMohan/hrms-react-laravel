@@ -274,3 +274,112 @@ Mohan
 
 Currently the form works with React State only.
 API Integration will be added in upcoming days using Laravel Backend.
+
+# Day 6 Goal - React API Integration
+
+## Topics Covered
+
+* Axios POST Request
+* Form Submit Handling
+* Local Storage
+* Token Storage
+
+---
+
+## Axios POST Request
+
+Learned how to send data from React to a backend API using Axios.
+
+Example:
+
+```javascript
+axios.post("http://localhost:8000/api/login", {
+    email,
+    password
+});
+```
+
+---
+
+## Form Submit
+
+Handled form submissions using React events.
+
+Example:
+
+```javascript
+const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // API call
+};
+```
+
+---
+
+## Local Storage
+
+Learned how to store data in the browser using Local Storage.
+
+Store data:
+
+```javascript
+localStorage.setItem("token", token);
+```
+
+Get data:
+
+```javascript
+const token = localStorage.getItem("token");
+```
+
+Remove data:
+
+```javascript
+localStorage.removeItem("token");
+```
+
+---
+
+## Token Storage
+
+After successful login, authentication token is stored in Local Storage.
+
+Example:
+
+```javascript
+const response = await axios.post(
+    "http://localhost:8000/api/login",
+    loginData
+);
+
+localStorage.setItem("token", response.data.token);
+```
+
+This token can be used for accessing protected APIs.
+
+Example:
+
+```javascript
+axios.get("http://localhost:8000/api/profile", {
+    headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+    }
+});
+```
+
+---
+
+## Learning Outcome
+
+✅ Connected React forms with Laravel APIs
+
+✅ Sent POST requests using Axios
+
+✅ Stored authentication tokens
+
+✅ Managed user sessions using Local Storage
+
+✅ Prepared foundation for protected routes and authentication flow
+
+#React #Laravel #Axios #API #Authentication #WebDevelopment #FullStackDeveloper

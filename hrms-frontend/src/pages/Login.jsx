@@ -1,17 +1,43 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     console.log("Email:", email);
     console.log("Password:", password);
 
-    alert("Form Submitted");
-  }
+    try {
+
+      const response = await axios.post(
+        "http://localhost:8000/api/login",
+        {
+          email,
+          password,
+        }
+      );
+
+      localStorage.setItem(
+        "token",
+        response.data.token
+      );
+
+      alert("Login Success");
+      navigate("/dashboard"); // Redirect
+
+    } catch (error) {
+      console.error("Login failed:", error);
+      alert("Login Failed");
+    }
+
+  };
 
   return (
     <div
