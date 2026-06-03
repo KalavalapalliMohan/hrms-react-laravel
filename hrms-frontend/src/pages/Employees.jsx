@@ -1,281 +1,511 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import EmployeeCard from "../components/EmployeeCard";
+import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 function Employees() {
-    const [employees, setEmployees] = useState([]);
+  const [employees, setEmployees] = useState([]);
+  const [editId, setEditId] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
-    const [formData, setFormData] = useState({
-      name: "",
-      email: "",
-      phone: "",
-      department: "",
-      designation: "",
-      status: ""
-    });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    department: "",
+    designation: "",
+    status: "",
+  });
 
-    useEffect(() => {
-        axios
-        .get("https://jsonplaceholder.typicode.com/users")
-        .then((res) => {
-            setEmployees(res.data);
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-    }, []);
+  const token = localStorage.getItem("token");
 
-    const handleChange = (e) => {
-      setFormData({
-        ...formData,
-        [e.target.name]: e.target.value
-      });
+  // Fetch Employees
+  const fetchEmployees = async () => {
+    try {
+      const res = await axios.get(
+        "http://localhost:8000/api/employees",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
+      console.log(res.data);
+      setEmployees(res.data.data);
+    } catch (error) {
+      console.log("Fetch Error:", error);
+    } finally {
+      setLoading(false);
     }
+  };
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
+  useEffect(() => {
+    fetchEmployees();
+  }, []);
 
-      const newEmployee = {
-        id: employees.length + 1,
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        department: formData.department,
-        designation: formData.designation,
-        status: formData.status
-      };
+  // Handle Input Change
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-      setEmployees([...employees, newEmployee]);
+  // Add Employee
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   try {
+  //     await axios.post(
+  //       "http://localhost:8000/api/employees",
+  //       formData,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //           Accept: "application/json",
+  //         },
+  //       }
+  //     );
+
+  //     fetchEmployees();
+
+  //     setFormData({
+  //       name: "",
+  //       email: "",
+  //       phone: "",
+  //       department: "",
+  //       designation: "",
+  //       status: "",
+  //     });
+
+  //     alert("Employee Added Successfully");
+  //   } catch (error) {
+  //     console.log(error.response?.data);
+  //   }
+  // };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (editId) {
+        await axios.put(
+          `http://localhost:8000/api/employees/${editId}`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Accept: "application/json",
+            },
+          }
+        );
+
+        alert("Employee Updated Successfully");
+        setEditId(null);
+        setShowModal(false);
+      } else {
+        await axios.post(
+          "http://localhost:8000/api/employees",
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Accept: "application/json",
+            },
+          }
+        );
+
+        alert("Employee Added Successfully");
+        setShowModal(false);
+      }
+
+      fetchEmployees();
+
       setFormData({
         name: "",
         email: "",
         phone: "",
         department: "",
         designation: "",
-        status: ""
+        status: "",
       });
-    };
 
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    // return (
-    //     <div style={{ padding: "20px" }}>
-    //         <h1>Employees</h1>
-    //         <input
-    //             type="text"
-    //             placeholder="Search Employee..."
-    //             style={{
-    //                 padding: "10px",
-    //                 width: "300px",
-    //                 marginBottom: "20px",
-    //                 border: "1px solid #ccc",
-    //                 borderRadius: "5px",
-    //                 outline: "none",
-    //                 fontSize: "16px"
-    //             }}
-    //         />
+  // Delete Employee
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this employee?")) {
+      return;
+    }
 
-    //         <div
-    //             style={{
-    //                 display: "flex",
-    //                 flexWrap: "wrap",
-    //                 gap: "20px",
-    //                 justifyContent: "center"
-    //             }}
-    //         >
-    //             {
-    //                 employees.map((employee) => (
-    //                     <EmployeeCard
-    //                         key={employee.id}
-    //                         name={employee.name}
-    //                         department={employee.department}
-    //                         email={employee.email}
-    //                         salary="₹50,000"
-    //                         status= {employee.id % 2 === 0 ? "Active" : "Inactive"}
-    //                         image={`https://i.pravatar.cc/150?img=${employee.id}`}
-    //                     />
-    //                 ))
-    //             }
-    //         </div>
-    //     </div>
-    // );
+    try {
+      await axios.delete(
+        `http://localhost:8000/api/employees/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+        }
+      );
 
-    return (
-  <div style={{ padding: "20px" }}>
-    <h1>Employees Management</h1>
+      fetchEmployees();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    {/* Form */}
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Employee Name"
-          value={formData.name}
-          onChange={handleChange}
-        />
+  // update employee
+  const handleEdit = (employee) => {
+    setFormData({
+      name: employee.name,
+      email: employee.email,
+      phone: employee.phone,
+      department: employee.department,
+      designation: employee.designation,
+      status: employee.status,
+    });
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Employee Email"
-          value={formData.email}
-          onChange={handleChange}
-        />
+    // Save employee id in state
+    setEditId(employee.id);
 
-        <input
-          type="text"
-          name="phone"
-          placeholder="Employee Phone"
-          value={formData.phone}
-          onChange={handleChange}
-        />
+    setShowModal(true);
+  };
 
-        <input
-          type="text"
-          name="department"
-          placeholder="Department"
-          value={formData.department}
-          onChange={handleChange}
-        />
+  const inputStyle = {
+    width: "100%",
+    padding: "5px",
+    height: "35px",
+    fontSize: "16px",
+    border: "1px solid #ccc",
+    borderRadius: "5px",
+    boxSizing: "border-box",
+  };
 
-        <input
-          type="text"
-          name="designation"
-          placeholder="Designation"
-          value={formData.designation}
-          onChange={handleChange}
-        />
+  if (loading) {
+    return <h2>Loading...</h2>;
+  }
 
-        <input
-          type="text"
-          name="status"
-          placeholder="Status"
-          value={formData.status}
-          onChange={handleChange}
-        />
+  return (
+    <div>
+      <Navbar />
 
-        <button type="submit">Add Employee</button>
-      </form>
+      <div style={{ display: "flex" }}>
+        <Sidebar />
 
-      <br />
+        <div
+          style={{
+            width: "100%",
+            padding: "20px",
+            marginTop: "60px",
+          }}
+        >
+          <h1>Employee Management</h1>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              alignItems: "center",
+              marginBottom: "20px",
+            }}
+          >
+           <button
+                onClick={() => {
+                  setEditId(null);
 
-    {/* Table */}
-    <table
-      border="1"
-      cellPadding="10"
-      style={{
-        width: "100%",
-        borderCollapse: "collapse",
-      }}
-    >
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Phone</th>
-          <th>Department</th>
-          <th>Designation</th>
-          <th>Status</th>
-        </tr>
-      </thead>
+                  setFormData({
+                    name: "",
+                    email: "",
+                    phone: "",
+                    department: "",
+                    designation: "",
+                    status: "",
+                  });
 
-      <tbody>
-        {employees.map((employee) => (
-          <tr key={employee.id}>
-            <td>{employee.name}</td>
-            <td>{employee.email}</td>
-            <td>{employee.phone}</td>
-            <td>{employee.department}</td>
-            <td>{employee.designation}</td>
-            <td>{employee.status}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-);
+                  setShowModal(true);
+                }}
+                style={{
+                  background: "#007bff",
+                  color: "#fff",
+                  border: "none",
+                  padding: "10px 20px",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                }}
+              >
+                Add Employee
+            </button>
+          </div>
+          {/* <form
+            onSubmit={handleSubmit}
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "10px",
+              marginBottom: "20px",
+            }}
+          >
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+
+            <input
+              type="text"
+              name="phone"
+              placeholder="Phone"
+              value={formData.phone}
+              onChange={handleChange}
+            />
+
+            <input
+              type="text"
+              name="department"
+              placeholder="Department"
+              value={formData.department}
+              onChange={handleChange}
+            />
+
+            <input
+              type="text"
+              name="designation"
+              placeholder="Designation"
+              value={formData.designation}
+              onChange={handleChange}
+            />
+
+            <input
+              type="text"
+              name="status"
+              placeholder="Status"
+              value={formData.status}
+              onChange={handleChange}
+            />
+
+            <button type="submit">
+              {editId ? "Update Employee" : "Add Employee"}
+            </button>
+          </form> */}
+
+          {showModal && (
+            <div
+              style={{
+                position: "fixed",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100vh",
+                background: "rgba(0,0,0,0.5)",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                zIndex: 999,
+              }}
+            >
+              <div
+                style={{
+                  background: "#000000",
+                  padding: "25px",
+                  borderRadius: "10px",
+                  width: "500px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginBottom: "20px",
+                  }}
+                >
+                  <h2>
+                    {editId ? "Edit Employee" : "Add Employee"}
+                  </h2>
+
+                  <button
+                    onClick={() => setShowModal(false)}
+                    style={{
+                      border: "none",
+                      background: "red",
+                      color: "#fff",
+                      cursor: "pointer",
+                      padding: "5px 10px",
+                    }}
+                  >
+                    X
+                  </button>
+                </div>
+
+                <form
+                  onSubmit={handleSubmit}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "10px",
+                    padding: "10px",
+                  }}
+                >
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    style={inputStyle}
+                    required
+                  />
+
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    style={inputStyle}
+                    required
+                  />
+
+                  <input
+                    type="text"
+                    name="phone"
+                    placeholder="Phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    style={inputStyle}
+                  />
+
+                  <input
+                    type="text"
+                    name="department"
+                    placeholder="Department"
+                    value={formData.department}
+                    onChange={handleChange}
+                    style={inputStyle}
+                  />
+
+                  <input
+                    type="text"
+                    name="designation"
+                    placeholder="Designation"
+                    value={formData.designation}
+                    onChange={handleChange}
+                    style={inputStyle}
+                  />
+
+                  <select
+                    name="status"
+                    value={formData.status}
+                    onChange={handleChange}
+                    style={inputStyle}
+                  >
+                    <option value="">Select Status</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                  </select>
+
+                  <button
+                    type="submit"
+                    style={{
+                      background: "#28a745",
+                      color: "#fff",
+                      border: "none",
+                      padding: "10px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {editId
+                      ? "Update Employee"
+                      : "Add Employee"}
+                  </button>
+                </form>
+              </div>
+            </div>
+          )}
+
+          <table
+            border="1"
+            cellPadding="10"
+            style={{
+              width: "100%",
+              borderCollapse: "collapse",
+            }}
+          >
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Department</th>
+                <th>Designation</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {employees.length > 0 ? (
+                employees.map((employee, index) => (
+                  <tr key={employee.id}>
+                    <td>{index + 1}</td>
+                    <td>{employee.name}</td>
+                    <td>{employee.email}</td>
+                    <td>{employee.phone}</td>
+                    <td>{employee.department}</td>
+                    <td>{employee.designation}</td>
+                    <td style={{
+                        color: employee.status?.toLowerCase() === "active" ? "green" : "red",
+                        fontWeight: "bold",
+                      }}
+                    >{employee.status}</td>
+                    <td>
+                      <FaEdit
+                        onClick={() => handleEdit(employee)}
+                        style={{
+                          color: "blue",
+                          cursor: "pointer",
+                          marginRight: "15px",
+                        }}
+                      />
+
+                      <FaTrash
+                        onClick={() => handleDelete(employee.id)}
+                        style={{
+                          color: "red",
+                          cursor: "pointer",
+                        }}
+                      />
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="7">No Employees Found</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Employees;
-
-
-
-// // Employees.jsx
-
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-// import EmployeeCard from "../components/EmployeeCard";
-
-// function Employees() {
-//   const [employees, setEmployees] = useState([]);
-//   const [search, setSearch] = useState("");
-
-//   useEffect(() => {
-//     axios
-//       .get("https://jsonplaceholder.typicode.com/users")
-//       .then((res) => {
-//         const formattedEmployees = res.data.map((emp) => ({
-//           id: emp.id,
-//           name: emp.name,
-//           department: "Developer",
-//           email: emp.email,
-//           salary: "₹50,000",
-//           status: emp.id % 2 === 0 ? "Active" : "Inactive",
-//           image: `https://i.pravatar.cc/150?img=${emp.id}`,
-//         }));
-
-//         setEmployees(formattedEmployees);
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   }, []);
-
-//   const filteredEmployees = employees.filter((employee) =>
-//     employee.name.toLowerCase().includes(search.toLowerCase())
-//   );
-
-//   return (
-//     <div style={{ padding: "20px" }}>
-//       <h1>Employees</h1>
-
-//       <input
-//         type="text"
-//         placeholder="Search Employee..."
-//         value={search}
-//         onChange={(e) => setSearch(e.target.value)}
-//         style={{
-//           padding: "10px",
-//           width: "300px",
-//           marginBottom: "20px",
-//           border: "1px solid #ccc",
-//           borderRadius: "5px",
-//           outline: "none",
-//           fontSize: "16px",
-//         }}
-//       />
-
-//       <div
-//         style={{
-//           display: "flex",
-//           flexWrap: "wrap",
-//           gap: "20px",
-//           justifyContent: "center",
-//         }}
-//       >
-//         {filteredEmployees.map((employee) => (
-//           <EmployeeCard
-//             key={employee.id}
-//             name={employee.name}
-//             department={employee.department}
-//             email={employee.email}
-//             salary={employee.salary}
-//             status={employee.status}
-//             image={employee.image}
-//           />
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default Employees;

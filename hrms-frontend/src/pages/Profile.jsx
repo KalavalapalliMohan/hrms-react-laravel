@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 function Profile() {
     const [user, setUser] = useState(null);
@@ -43,37 +46,44 @@ function Profile() {
     }
 
     return (
-        <div
+    <div>
+      <Navbar />
+
+        <div style={{ display: "flex" }}>
+            <Sidebar />
+
+            <div
             style={{
+                width: "100%",
                 padding: "20px",
-                maxWidth: "500px",
-                margin: "50px auto",
-                border: "1px solid #ddd",
-                borderRadius: "10px",
-                boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+                marginTop: "60px",
             }}
-        >
-            <h1>Profile Page</h1>
+            >
+            <h1>Profile</h1>
 
-            <hr />
+                <hr />
 
-            <p>
-                <strong>ID:</strong> {user.id}
-            </p>
+                <p>
+                    <strong>ID:</strong> {user.id}
+                </p>
 
-            <p>
-                <strong>Name:</strong> {user.name}
-            </p>
+                <p>
+                    <strong>Name:</strong> {user.name}
+                </p>
 
-            <p>
-                <strong>Email:</strong> {user.email}
-            </p>
+                <p>
+                    <strong>Email:</strong> {user.email}
+                </p>
 
-            <p>
-                <strong>Created At:</strong>{" "}
-                {new Date(user.created_at).toLocaleString()}
-            </p>
+                <p>
+                    <strong>Created At:</strong>{" "}
+                    {new Date(user.created_at).toLocaleString()}
+                </p>
+            </div>
+
         </div>
+
+    </div>
     );
 }
 
