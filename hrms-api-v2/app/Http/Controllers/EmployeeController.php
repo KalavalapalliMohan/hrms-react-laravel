@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use Illuminate\Http\Request;
+use App\Http\Resources\EmployeeResource;
 
 class EmployeeController extends Controller
 {
@@ -12,11 +13,9 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::all();
-
         return response()->json([
             'status' => true,
-            'data' => $employees
+            'data' => EmployeeResource::collection(Employee::all())
         ]);
     }
 
@@ -45,7 +44,7 @@ class EmployeeController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Employee created successfully',
-            'data' => $employee
+            'data' => new EmployeeResource($employee)
         ], 201);
     }
 
@@ -56,7 +55,7 @@ class EmployeeController extends Controller
     {
         return response()->json([
             'status' => true,
-            'data' => $employee
+            'data' => new EmployeeResource($employee)
         ]);
     }
 
@@ -77,7 +76,7 @@ class EmployeeController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Employee updated successfully',
-            'data' => $employee
+            'data' => new EmployeeResource($employee)
         ]);
     }
 

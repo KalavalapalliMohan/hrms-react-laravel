@@ -391,3 +391,81 @@ axios.get("http://localhost:8000/api/profile", {
 ✅ Prepared foundation for protected routes and authentication flow
 
 #React #Laravel #Axios #API #Authentication #WebDevelopment #FullStackDeveloper
+
+
+# Day 8 - Laravel API Resources & React Router
+
+## Laravel API Resources
+
+Implemented Laravel API Resources to maintain a consistent JSON response structure across all Employee APIs.
+
+### Features
+
+* Created EmployeeResource
+* Returned employee data using API Resources
+* Standardized API responses
+* Improved backend response management
+
+### Sample Response
+
+```json
+{
+  "status": true,
+  "data": {
+    "id": 1,
+    "name": "Mohan"
+  }
+}
+```
+
+---
+
+## React Router Setup
+
+Integrated React Router for frontend navigation.
+
+### Routes Created
+
+* Login Route
+* Dashboard Route
+* Employees Route
+* Profile Route
+
+### Benefits
+
+* Seamless page navigation
+* Better application structure
+* Improved user experience
+
+---
+
+## Day 8 Outcome
+
+✅ Laravel API Resources
+
+✅ Consistent JSON Response Structure
+
+✅ React Router Setup
+
+✅ Login Page Routing
+
+✅ Dashboard Routing
+
+✅ Employees Module Routing
+
+✅ Profile Page Routing
+
+✅ Better API Response Management
+
+✅ Improved Frontend Navigation
+
+---
+
+### Technologies Used
+
+* Laravel 12
+* Laravel API Resources
+* React.js
+* React Router DOM
+* Axios
+* Sanctum Authentication

@@ -3,6 +3,7 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import Image from "../assets/mohan.jpeg";
 
 function Profile() {
     const [user, setUser] = useState(null);
@@ -53,32 +54,56 @@ function Profile() {
             <Sidebar />
 
             <div
-            style={{
-                width: "100%",
+                style={{
+                flex: 1,
                 padding: "20px",
                 marginTop: "60px",
-            }}
+                }}
             >
-            <h1>Profile</h1>
+                <div
+                    style={{
+                    width: "100%",
+                    height: "350px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    background: "#fff",
+                    borderRadius: "12px",
+                    boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+                    textAlign: "center",
+                }}
 
-                <hr />
+                >
+                <img
+                    src={Image}
+                    alt="Profile"
+                    style={{
+                    width: "120px",
+                    height: "120px",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    marginBottom: "15px",
+                    }}
+                />
 
-                <p>
-                    <strong>ID:</strong> {user.id}
-                </p>
-
-                <p>
-                    <strong>Name:</strong> {user.name}
-                </p>
+                <h2 style={{ color: "#333"}}>
+                    <strong>{user.name}</strong> 
+                </h2>
 
                 <p>
                     <strong>Email:</strong> {user.email}
                 </p>
 
                 <p>
-                    <strong>Created At:</strong>{" "}
-                    {new Date(user.created_at).toLocaleString()}
+                    <strong>ID:</strong> {user.id}
                 </p>
+
+                <p>
+                    <strong>Joined:</strong>{" "}
+                    {new Date(user.created_at).toLocaleDateString()}
+                </p>
+                </div>
             </div>
 
         </div>

@@ -262,3 +262,80 @@ Today was all about understanding real-world API authentication using Laravel Sa
 * Connect React Frontend with Laravel Employee APIs
 * Axios CRUD Operations
 * Employee Create, Edit and Delete from React
+
+# Day 8 - Laravel API Resources
+
+## Objective
+
+Learn and implement Laravel API Resources to create consistent and reusable API responses.
+
+## Topics Covered
+
+### Laravel API Resources
+
+Created a resource using:
+
+```bash
+php artisan make:resource EmployeeResource
+```
+
+### Employee Resource
+
+Used EmployeeResource to transform employee data before sending API responses.
+
+Example:
+
+```php
+return response()->json([
+    'status' => true,
+    'data' => new EmployeeResource($employee)
+]);
+```
+
+### Consistent JSON Response Structure
+
+Standardized all Employee API responses with a common format.
+
+Example Response:
+
+```json
+{
+  "status": true,
+  "data": {
+    "id": 1,
+    "name": "Mohan"
+  }
+}
+```
+
+## Implemented Features
+
+* EmployeeResource created
+* Employee List response using Resource Collection
+* Employee Details response using Resource
+* Employee Create response using Resource
+* Employee Update response using Resource
+* Consistent API response format
+* Cleaner and maintainable API structure
+
+## Day 8 Outcome
+
+✅ Laravel API Resources
+
+✅ Consistent JSON Response Structure
+
+✅ Employee Resource Collection
+
+✅ Standardized API Responses
+
+✅ Better API Response Management
+
+✅ Improved Code Maintainability
+
+## Technologies Used
+
+* Laravel 12
+* PHP
+* API Resources
+* MySQL
+* REST API

@@ -383,3 +383,96 @@ axios.get("http://localhost:8000/api/profile", {
 ✅ Prepared foundation for protected routes and authentication flow
 
 #React #Laravel #Axios #API #Authentication #WebDevelopment #FullStackDeveloper
+
+
+# Day 8 - React Router Setup
+
+## Objective
+
+Learn and implement React Router for navigation between different pages in the Employee Management System.
+
+## Topics Covered
+
+### React Router DOM
+
+Installed React Router DOM package:
+
+```bash
+npm install react-router-dom
+```
+
+### Routes Created
+
+#### Login Route
+
+```jsx
+<Route path="/" element={<Login />} />
+```
+
+#### Dashboard Route
+
+```jsx
+<Route path="/dashboard" element={<Dashboard />} />
+```
+
+#### Employees Route
+
+```jsx
+<Route path="/employees" element={<Employees />} />
+```
+
+### App Routing Configuration
+
+```jsx
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Employees from "./pages/Employees";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/employees" element={<Employees />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+```
+
+## Features Implemented
+
+* React Router DOM Installation
+* Login Page Routing
+* Dashboard Page Routing
+* Employees Page Routing
+* Navigation Between Pages
+* Organized Route Structure
+* Improved User Experience
+
+## Day 8 Outcome
+
+✅ React Router Setup
+
+✅ Login Route Created
+
+✅ Dashboard Route Created
+
+✅ Employees Route Created
+
+✅ Client-Side Routing
+
+✅ Better Navigation Flow
+
+✅ Improved Application Structure
+
+## Technologies Used
+
+* React.js
+* React Router DOM
+* JavaScript
+* JSX
