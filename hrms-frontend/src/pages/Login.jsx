@@ -61,7 +61,7 @@ function Login() {
           onSubmit={handleSubmit}
         >
 
-        <h2>Login</h2>
+        <h2>HRMS Login</h2>
 
         <input
           type="email"

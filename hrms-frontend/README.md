@@ -476,3 +476,83 @@ export default App;
 * React Router DOM
 * JavaScript
 * JSX
+# Day 9 - React Employee List & Pagination
+
+## Goal
+
+Integrate Employee List API with React and implement Pagination Navigation.
+
+## React Tasks
+
+### Employee List API Call
+
+Fetch employee data from Laravel API using Axios.
+
+```jsx
+const [employees, setEmployees] = useState([]);
+```
+
+### Display Employee Data
+
+Render employee records dynamically using:
+
+```jsx
+employees.map(...)
+```
+
+## Features Implemented
+
+### Employee List
+
+* Fetch employee data from API
+* Store response in React state
+* Display employee records in table format
+
+### Pagination
+
+Created pagination controls:
+
+* Previous Button
+* Page Number Buttons
+* Next Button
+
+### Navigation Features
+
+* Previous button disabled on first page
+* Next button disabled on last page
+* Current page highlighted
+* Dynamic API calls on page change
+* Smooth page navigation experience
+
+## Learning Outcomes
+
+✅ React API Integration
+
+✅ Axios GET Requests
+
+✅ State Management with useState
+
+✅ Dynamic Rendering using map()
+
+✅ Pagination Logic
+
+✅ Page Navigation Controls
+
+✅ Professional Frontend Data Handling
+
+## Technologies Used
+
+* React JS
+* Axios
+* JavaScript (ES6)
+* Laravel API
+
+## Project Progress
+
+Successfully implemented employee listing and pagination functionality for the Employee Management System.
+
+### Author
+
+Mohan
+
+Full Stack Laravel + React Learning Journey 🚀

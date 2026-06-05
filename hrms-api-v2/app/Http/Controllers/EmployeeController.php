@@ -13,9 +13,16 @@ class EmployeeController extends Controller
      */
     public function index()
     {
+        $employees = Employee::paginate(5);
         return response()->json([
             'status' => true,
-            'data' => EmployeeResource::collection(Employee::all())
+            'data' => EmployeeResource::collection($employees),
+            'pagination' => [
+            'current_page' => $employees->currentPage(),
+            'last_page' => $employees->lastPage(),
+            'per_page' => $employees->perPage(),
+            'total' => $employees->total(),
+        ]
         ]);
     }
 

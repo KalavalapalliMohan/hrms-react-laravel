@@ -469,3 +469,97 @@ Integrated React Router for frontend navigation.
 * React Router DOM
 * Axios
 * Sanctum Authentication
+
+
+# Day 9 - Laravel Pagination & React Integration
+
+## Overview
+
+Implemented Laravel API Pagination and integrated it with React Employee Management System.
+
+## Backend (Laravel)
+
+### Features
+
+* Laravel Pagination using `paginate(10)`
+* API Resource Collection
+* Consistent JSON Response Structure
+* Pagination Metadata Support
+
+### Controller Example
+
+```php
+$employees = Employee::paginate(10);
+
+return EmployeeResource::collection($employees);
+```
+
+### API Endpoint
+
+```http
+GET /api/employees?page=1
+```
+
+### Response Structure
+
+```json
+{
+  "data": [],
+  "links": {},
+  "meta": {}
+}
+```
+
+## Frontend (React)
+
+### Features
+
+* Employee List API Integration
+* Dynamic Employee Rendering
+* Pagination State Management
+* Previous / Next Navigation
+* Active Page Highlighting
+* Disabled Navigation on First & Last Pages
+
+### React State
+
+```jsx
+const [employees, setEmployees] = useState([]);
+```
+
+### Employee Display
+
+```jsx
+employees.map(...)
+```
+
+### Pagination UI
+
+* Previous Button
+* Page Numbers
+* Next Button
+* Current Page Highlight
+* Disabled Previous on First Page
+* Disabled Next on Last Page
+
+## Technologies Used
+
+* Laravel 12
+* Laravel API Resources
+* React JS
+* Axios
+* React Hooks
+
+## Learning Outcomes
+
+✅ Laravel Pagination
+
+✅ API Resource Collections
+
+✅ React API Integration
+
+✅ Pagination State Management
+
+✅ Dynamic Page Navigation
+
+✅ Professional API Response Handling

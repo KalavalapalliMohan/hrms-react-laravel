@@ -339,3 +339,75 @@ Example Response:
 * API Resources
 * MySQL
 * REST API
+# Day 9 - Laravel Pagination
+
+## Goal
+
+Implement Laravel Pagination for Employee Management API and verify paginated responses.
+
+## Backend Task
+
+### Controller
+
+```php
+$employees = Employee::paginate(10);
+
+return EmployeeResource::collection($employees);
+```
+
+### API Endpoint
+
+```http
+GET /api/employees?page=1
+```
+
+## Expected Response
+
+```json
+{
+  "data": [],
+  "links": {},
+  "meta": {}
+}
+```
+
+## Features Implemented
+
+* Laravel Pagination using `paginate(10)`
+* API Resource Collection
+* Paginated Employee List Response
+* Links Object for Navigation
+* Meta Object for Pagination Information
+* Professional API Response Structure
+
+## Benefits of Pagination
+
+* Faster API Responses
+* Reduced Data Load
+* Better Performance
+* Easy Frontend Navigation
+* Professional API Design
+
+## Learning Outcome
+
+✅ Laravel Pagination
+
+✅ Employee Resource Collection
+
+✅ API Testing with Pagination
+
+✅ Understanding `links` and `meta`
+
+✅ Professional REST API Development
+
+## Tech Stack
+
+* Laravel
+* PHP
+* MySQL
+* API Resources
+
+## Author
+
+Mohan
+Full Stack Laravel & React Developer Journey

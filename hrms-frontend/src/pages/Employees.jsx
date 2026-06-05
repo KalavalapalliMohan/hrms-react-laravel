@@ -9,6 +9,11 @@ function Employees() {
   const [editId, setEditId] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [pagination, setPagination] = useState({
+    current_page: 1,
+    last_page: 1,
+    per_page: 10,
+  });
 
   const [formData, setFormData] = useState({
     name: "",
@@ -22,10 +27,10 @@ function Employees() {
   const token = localStorage.getItem("token");
 
   // Fetch Employees
-  const fetchEmployees = async () => {
+  const fetchEmployees = async (page = 1) => {
     try {
       const res = await axios.get(
-        "http://localhost:8000/api/employees",
+        `http://localhost:8000/api/employees?page=${page}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -35,6 +40,7 @@ function Employees() {
       );
       console.log(res.data);
       setEmployees(res.data.data);
+      setPagination(res.data.pagination);
     } catch (error) {
       console.log("Fetch Error:", error);
     } finally {
@@ -241,69 +247,6 @@ function Employees() {
                 Add Employee
             </button>
           </div>
-          {/* <form
-            onSubmit={handleSubmit}
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "10px",
-              marginBottom: "20px",
-            }}
-          >
-            <input
-              type="text"
-              name="name"
-              placeholder="Name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-
-            <input
-              type="text"
-              name="phone"
-              placeholder="Phone"
-              value={formData.phone}
-              onChange={handleChange}
-            />
-
-            <input
-              type="text"
-              name="department"
-              placeholder="Department"
-              value={formData.department}
-              onChange={handleChange}
-            />
-
-            <input
-              type="text"
-              name="designation"
-              placeholder="Designation"
-              value={formData.designation}
-              onChange={handleChange}
-            />
-
-            <input
-              type="text"
-              name="status"
-              placeholder="Status"
-              value={formData.status}
-              onChange={handleChange}
-            />
-
-            <button type="submit">
-              {editId ? "Update Employee" : "Add Employee"}
-            </button>
-          </form> */}
 
           {showModal && (
             <div
@@ -464,17 +407,31 @@ function Employees() {
               {employees.length > 0 ? (
                 employees.map((employee, index) => (
                   <tr key={employee.id}>
-                    <td>{index + 1}</td>
+                    <td>
+                      {(pagination.current_page - 1) *
+                        pagination.per_page +
+                        index +
+                        1}
+                    </td>
+
                     <td>{employee.name}</td>
                     <td>{employee.email}</td>
                     <td>{employee.phone}</td>
                     <td>{employee.department}</td>
                     <td>{employee.designation}</td>
-                    <td style={{
-                        color: employee.status?.toLowerCase() === "active" ? "green" : "red",
+
+                    <td
+                      style={{
+                        color:
+                          employee.status?.toLowerCase() === "active"
+                            ? "green"
+                            : "red",
                         fontWeight: "bold",
                       }}
-                    >{employee.status}</td>
+                    >
+                      {employee.status}
+                    </td>
+
                     <td>
                       <FaEdit
                         onClick={() => handleEdit(employee)}
@@ -497,11 +454,90 @@ function Employees() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="7">No Employees Found</td>
+                  <td colSpan="8" style={{ textAlign: "center" }}>
+                    No Employees Found
+                  </td>
                 </tr>
               )}
             </tbody>
           </table>
+
+          {/* Pagination */}
+          <div
+            style={{
+              marginTop: "20px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "10px",
+            }}
+          >
+            {/* Previous Button */}
+            <button
+              onClick={() => fetchEmployees(pagination.current_page - 1)}
+              disabled={pagination.current_page === 1}
+              style={{
+                backgroundColor:
+                  pagination.current_page === 1 ? "#e5e5e5" : "white",
+                color:
+                  pagination.current_page === 1 ? "#999" : "black",
+                border: "1px solid black",
+                padding: "8px 16px",
+                borderRadius: "5px",
+                cursor:
+                  pagination.current_page === 1
+                    ? "not-allowed"
+                    : "pointer",
+              }}
+            >
+              Previous
+            </button>
+
+            {/* Current Page Highlight */}
+            <span
+              style={{
+                backgroundColor: "#007bff",
+                color: "white",
+                padding: "8px 14px",
+                borderRadius: "5px",
+                fontWeight: "bold",
+              }}
+            >
+              {pagination.current_page}
+            </span>
+
+            <span>
+              of {pagination.last_page}
+            </span>
+
+            {/* Next Button */}
+            <button
+              onClick={() => fetchEmployees(pagination.current_page + 1)}
+              disabled={
+                pagination.current_page === pagination.last_page
+              }
+              style={{
+                backgroundColor:
+                  pagination.current_page === pagination.last_page
+                    ? "#e5e5e5"
+                    : "white",
+                color:
+                  pagination.current_page === pagination.last_page
+                    ? "#999"
+                    : "black",
+                border: "1px solid black",
+                padding: "8px 16px",
+                borderRadius: "5px",
+                cursor:
+                  pagination.current_page === pagination.last_page
+                    ? "not-allowed"
+                    : "pointer",
+              }}
+            >
+              Next
+            </button>
+          </div>
+
         </div>
       </div>
     </div>
