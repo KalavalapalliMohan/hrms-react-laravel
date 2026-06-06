@@ -411,3 +411,77 @@ GET /api/employees?page=1
 
 Mohan
 Full Stack Laravel & React Developer Journey
+# Day 10 - Search API
+
+## Overview
+
+Today I implemented Search Functionality in the Employee Management System. Search is one of the most important features in real-world applications because it helps users quickly find records without browsing through all data.
+
+## Backend - Laravel Search API
+
+Added search functionality in EmployeeController using Laravel Query Builder.
+
+### Search Logic
+
+```php
+$query = Employee::query();
+
+if ($request->search) {
+    $query->where('name', 'like', '%' . $request->search . '%')
+          ->orWhere('email', 'like', '%' . $request->search . '%')
+          ->orWhere('department', 'like', '%' . $request->search . '%');
+}
+
+$employees = $query->paginate(10);
+
+return EmployeeResource::collection($employees);
+```
+
+### API Testing
+
+```http
+GET /api/employees?search=mohan
+GET /api/employees?search=IT
+GET /api/employees?search=gmail
+```
+
+## Features
+
+✅ Search Employees by Name
+
+✅ Search Employees by Email
+
+✅ Search Employees by Department
+
+✅ Pagination Support with Search Results
+
+✅ API Resource Response Format
+
+## Learning Outcomes
+
+* Laravel Query Builder
+* Dynamic Search Filtering
+* Request Parameters Handling
+* LIKE Operator Usage
+* Search API Development
+* Pagination with Search Results
+
+## Tech Stack
+
+* Laravel 12
+* MySQL
+* REST API
+* API Resources
+* Pagination
+
+## Project Status
+
+Employee Management System now supports:
+
+* Authentication
+* Employee CRUD Operations
+* API Resources
+* Pagination
+* Search API
+
+🚀 Day 10 Completed Successfully

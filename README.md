@@ -563,3 +563,98 @@ employees.map(...)
 ✅ Dynamic Page Navigation
 
 ✅ Professional API Response Handling
+
+
+# Day 10 - Employee Search API Integration
+
+## Features Implemented
+
+### Backend (Laravel)
+
+✅ Employee Search API
+
+Implemented search functionality in EmployeeController using query builder.
+
+```php
+$query = Employee::query();
+
+if ($request->search) {
+    $query->where('name', 'like', '%' . $request->search . '%')
+          ->orWhere('email', 'like', '%' . $request->search . '%')
+          ->orWhere('department', 'like', '%' . $request->search . '%');
+}
+
+$employees = $query->paginate(10);
+
+return EmployeeResource::collection($employees);
+```
+
+### API Testing
+
+```http
+GET /api/employees?search=mohan
+GET /api/employees?search=IT
+GET /api/employees?search=gmail
+```
+
+### Frontend (React)
+
+✅ Search Input Field
+
+```jsx
+<input
+  type="text"
+  placeholder="Search Employee"
+/>
+```
+
+✅ Dynamic Search API Integration
+
+```javascript
+axios.get(
+  `http://127.0.0.1:8000/api/employees?search=${search}`
+);
+```
+
+### Bonus Feature
+
+✅ Real-Time Search
+
+Implemented automatic API requests while typing using:
+
+* useState
+* useEffect
+* Axios
+
+No need to click a search button. Results update instantly as the user types.
+
+## Technologies Used
+
+* Laravel 12
+* React JS
+* Axios
+* REST API
+* Laravel API Resources
+* Pagination
+* Search Functionality
+
+## Learning Outcome
+
+* Laravel Query Builder Search
+* Dynamic API Filtering
+* React State Management
+* useEffect Hook
+* Real-Time Search Implementation
+* API Integration Between Laravel & React
+
+## Project Status
+
+Employee Management System now supports:
+
+* Authentication
+* CRUD Operations
+* API Resources
+* Pagination
+* Search Functionality
+
+Day 10 Completed Successfully 🚀

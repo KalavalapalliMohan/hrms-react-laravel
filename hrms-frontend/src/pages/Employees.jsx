@@ -4,7 +4,10 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
+// Employee Management Component
 function Employees() {
+
+  // State Variables
   const [employees, setEmployees] = useState([]);
   const [editId, setEditId] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -15,6 +18,9 @@ function Employees() {
     per_page: 10,
   });
 
+  const [search, setSearch] = useState("");
+
+  // Form Data State
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -26,11 +32,11 @@ function Employees() {
 
   const token = localStorage.getItem("token");
 
-  // Fetch Employees
+  // Fetch Employees with Pagination and Search
   const fetchEmployees = async (page = 1) => {
     try {
       const res = await axios.get(
-        `http://localhost:8000/api/employees?page=${page}`,
+        `http://localhost:8000/api/employees?page=${page}&search=${search}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -50,7 +56,7 @@ function Employees() {
 
   useEffect(() => {
     fetchEmployees();
-  }, []);
+  }, [search]);
 
   // Handle Input Change
   const handleChange = (e) => {
@@ -60,38 +66,7 @@ function Employees() {
     });
   };
 
-  // Add Employee
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   try {
-  //     await axios.post(
-  //       "http://localhost:8000/api/employees",
-  //       formData,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //           Accept: "application/json",
-  //         },
-  //       }
-  //     );
-
-  //     fetchEmployees();
-
-  //     setFormData({
-  //       name: "",
-  //       email: "",
-  //       phone: "",
-  //       department: "",
-  //       designation: "",
-  //       status: "",
-  //     });
-
-  //     alert("Employee Added Successfully");
-  //   } catch (error) {
-  //     console.log(error.response?.data);
-  //   }
-  // };
+  // Add Employee and Update Employee
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -183,6 +158,7 @@ function Employees() {
     setShowModal(true);
   };
 
+  // Input Style Object
   const inputStyle = {
     width: "100%",
     padding: "5px",
@@ -193,10 +169,12 @@ function Employees() {
     boxSizing: "border-box",
   };
 
+  // Show loading state while fetching data
   if (loading) {
     return <h2>Loading...</h2>;
   }
 
+  // Main Render
   return (
     <div>
       <Navbar />
@@ -212,42 +190,59 @@ function Employees() {
           }}
         >
           <h1>Employee Management</h1>
+
+          {/* Search and Add Employee Controls */}
           <div
             style={{
               display: "flex",
-              justifyContent: "flex-end",
+              justifyContent: "space-between",
               alignItems: "center",
               marginBottom: "20px",
             }}
           >
-           <button
-                onClick={() => {
-                  setEditId(null);
+            <input
+              type="text"
+              placeholder="Search Employee"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              style={{
+                padding: "10px",
+                width: "250px",
+                border: "1px solid #ccc",
+                borderRadius: "5px",
+              }}
+            />
 
-                  setFormData({
-                    name: "",
-                    email: "",
-                    phone: "",
-                    department: "",
-                    designation: "",
-                    status: "",
-                  });
+            <button
+              onClick={() => {
+                setEditId(null);
 
-                  setShowModal(true);
-                }}
-                style={{
-                  background: "#007bff",
-                  color: "#fff",
-                  border: "none",
-                  padding: "10px 20px",
-                  borderRadius: "5px",
-                  cursor: "pointer",
-                }}
-              >
-                Add Employee
+                setFormData({
+                  name: "",
+                  email: "",
+                  phone: "",
+                  department: "",
+                  designation: "",
+                  status: "",
+                });
+
+                setShowModal(true);
+              }}
+              style={{
+                background: "#007bff",
+                color: "#fff",
+                border: "none",
+                padding: "10px 20px",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
+            >
+              Add Employee
             </button>
+
           </div>
 
+          {/* Employee Modal */}
           {showModal && (
             <div
               style={{
@@ -382,6 +377,7 @@ function Employees() {
             </div>
           )}
 
+          {/* Employee Table */}
           <table
             border="1"
             cellPadding="10"
@@ -539,7 +535,9 @@ function Employees() {
           </div>
 
         </div>
+
       </div>
+
     </div>
   );
 }

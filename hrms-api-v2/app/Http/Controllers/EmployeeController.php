@@ -13,7 +13,18 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::paginate(5);
+        $query = Employee::query();
+
+        if ($search = request()->query('search')) {
+            $query->where('name', 'like', "%{$search}%")
+                ->orWhere('email', 'like', "%{$search}%")
+                ->orWhere('phone', 'like', "%{$search}%")
+                ->orWhere('department', 'like', "%{$search}%")
+                ->orWhere('designation', 'like', "%{$search}%");
+        }
+        
+        $employees = $query->paginate(5);
+
         return response()->json([
             'status' => true,
             'data' => EmployeeResource::collection($employees),
