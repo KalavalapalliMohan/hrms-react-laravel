@@ -485,3 +485,66 @@ Employee Management System now supports:
 * Search API
 
 🚀 Day 10 Completed Successfully
+
+# 🚀 Employee Management System - Day 11
+
+## ✅ Filters API Implementation
+
+Today I implemented **Search + Filters API** functionality in my Laravel + React Employee Management System.
+
+### 🔹 Backend (Laravel)
+
+Implemented dynamic filtering using Laravel Query Builder.
+
+#### Features
+
+* Search Employees by:
+
+  * Name
+  * Email
+
+* Filter Employees by:
+
+  * Department
+  * Status
+
+* Combine Search + Filters
+
+* Pagination Support
+
+### Example API Endpoints
+
+#### Search
+
+```http
+GET /api/employees?search=mohan
+```
+
+#### Department Filter
+
+```http
+GET /api/employees?department=IT
+```
+
+#### Status Filter
+
+```http
+GET /api/employees?status=active
+```
+
+#### Combined Filters
+
+```http
+GET /api/employees?search=mohan&department=IT&status=active
+```
+
+### Laravel Concepts Used
+
+* Query Builder
+* where()
+* orWhere()
+* Conditional Queries
+* Pagination
+* API Resources
+
+---

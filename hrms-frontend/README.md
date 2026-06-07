@@ -645,3 +645,74 @@ Employee Management System now includes:
 * Real-Time Search Functionality
 
 🚀 Day 10 React Search Integration Completed Successfully
+
+# 🚀 Employee Management System - Day 11
+## 🔹 Frontend (React)
+
+Integrated Filters API with React.
+
+### Features
+
+* Employee Search Input
+* Department Dropdown Filter
+* Status Dropdown Filter
+* Dynamic API Calls using Axios
+* Real-time Data Rendering
+* Pagination Support
+
+### Filter Options
+
+#### Department
+
+* All
+* IT
+* HR
+* Accounts
+
+#### Status
+
+* Active
+* Inactive
+
+---
+
+## 🎯 Mini Challenge Completed
+
+### Sort Employees by Name
+
+```http
+GET /api/employees?sort=name
+```
+
+### Latest Employees
+
+Used Laravel:
+
+```php
+Employee::latest()
+```
+
+to display newest employees first.
+
+---
+
+## 📚 What I Learned
+
+* Building dynamic queries using Query Builder
+* Combining Search and Filters
+* Handling multiple request parameters
+* React state management for filters
+* API integration with Axios
+* Sorting and Pagination techniques
+
+---
+
+### Tech Stack
+
+* Laravel 12
+* React.js
+* MySQL
+* Axios
+* REST API
+
+🚀 Continuing Full Stack Laravel + React Journey Day by Day.

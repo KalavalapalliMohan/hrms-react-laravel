@@ -17,8 +17,11 @@ function Employees() {
     last_page: 1,
     per_page: 10,
   });
-
   const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState("All");
+  const [status, setStatus] = useState("All");
+  const [department, setDepartment] = useState("All");
+  const [sort, setSort] = useState("");
 
   // Form Data State
   const [formData, setFormData] = useState({
@@ -36,7 +39,7 @@ function Employees() {
   const fetchEmployees = async (page = 1) => {
     try {
       const res = await axios.get(
-        `http://localhost:8000/api/employees?page=${page}&search=${search}`,
+        `http://localhost:8000/api/employees?page=${page}&search=${search}&department=${department}&status=${status}&sort=${sort}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -56,7 +59,7 @@ function Employees() {
 
   useEffect(() => {
     fetchEmployees();
-  }, [search]);
+  }, [search, department, status, sort]);
 
   // Handle Input Change
   const handleChange = (e) => {
@@ -200,19 +203,71 @@ function Employees() {
               marginBottom: "20px",
             }}
           >
-            <input
-              type="text"
-              placeholder="Search Employee"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
+            {/* Search + Filters */}
+            <div
               style={{
-                padding: "10px",
-                width: "250px",
-                border: "1px solid #ccc",
-                borderRadius: "5px",
+                display: "flex",
+                gap: "10px",
+                alignItems: "center",
               }}
-            />
+            >
+              <input
+                type="text"
+                placeholder="Search Employee"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                style={{
+                  padding: "10px",
+                  width: "250px",
+                  border: "1px solid #ccc",
+                  borderRadius: "5px",
+                }}
+              />
 
+              <select
+                value={sort}
+                onChange={(e) => setSort(e.target.value)}
+                style={{
+                  padding: "10px",
+                  border: "1px solid #ccc",
+                  borderRadius: "5px",
+                }}
+              >
+                <option value="">Latest</option>
+                <option value="name">Name</option>
+              </select>
+
+              <select
+                value={department}
+                onChange={(e) => setDepartment(e.target.value)}
+                style={{
+                  padding: "10px",
+                  border: "1px solid #ccc",
+                  borderRadius: "5px",
+                }}
+              >
+                <option value="All">All Departments</option>
+                <option value="IT">IT</option>
+                <option value="HR">HR</option>
+                <option value="Accounts">Accounts</option>
+              </select>
+
+              <select
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+                style={{
+                  padding: "10px",
+                  border: "1px solid #ccc",
+                  borderRadius: "5px",
+                }}
+              >
+                <option value="All">All Status</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+              </select>
+            </div>
+
+            {/* Add Employee Button */}
             <button
               onClick={() => {
                 setEditId(null);
@@ -239,7 +294,6 @@ function Employees() {
             >
               Add Employee
             </button>
-
           </div>
 
           {/* Employee Modal */}

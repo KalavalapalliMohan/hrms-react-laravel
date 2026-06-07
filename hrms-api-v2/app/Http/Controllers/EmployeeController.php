@@ -11,10 +11,11 @@ class EmployeeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $query = Employee::query();
 
+        // Search functionality
         if ($search = request()->query('search')) {
             $query->where('name', 'like', "%{$search}%")
                 ->orWhere('email', 'like', "%{$search}%")
@@ -22,9 +23,28 @@ class EmployeeController extends Controller
                 ->orWhere('department', 'like', "%{$search}%")
                 ->orWhere('designation', 'like', "%{$search}%");
         }
+
+        // // Filter by department
+        if ($request->has('department') && $request->department !== 'All') {
+            $query->where('department', $request->department);
+        }
+
+        // // Filter by status
+        if ($request->has('status') && $request->status !== 'All') {
+            $query->where('status', $request->status);
+        }
+
+        // // Sorting
+        if ($request->sort === 'name') {
+            $query->orderBy('name');
+        } else {
+            $query->latest();
+        }
         
+        // Pagination
         $employees = $query->paginate(5);
 
+        // Return paginated response with employee data
         return response()->json([
             'status' => true,
             'data' => EmployeeResource::collection($employees),
