@@ -24,10 +24,9 @@ function Login() {
         }
       );
 
-      localStorage.setItem(
-        "token",
-        response.data.token
-      );
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("name", response.data.user.name);
+      localStorage.setItem("role", response.data.user.role);
 
       alert("Login Success");
       navigate("/dashboard"); // Redirect

@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 function Navbar() {
     const [showDropdown, setShowDropdown] = useState(false);
     const navigate = useNavigate();
+    const role = localStorage.getItem("role");
 
 const handleLogout = async () => {
     const token = localStorage.getItem("token");
@@ -71,7 +72,7 @@ const handleLogout = async () => {
                         }}
                     />
 
-                    <span>Admin ▼</span>
+                    <span>{role?.charAt(0).toUpperCase() + role?.slice(1)}  ▼</span>
                 </div>
 
                 {/* Dropdown Menu */}

@@ -22,6 +22,7 @@ function Employees() {
   const [status, setStatus] = useState("All");
   const [department, setDepartment] = useState("All");
   const [sort, setSort] = useState("");
+  const role = localStorage.getItem("role");
 
   // Form Data State
   const [formData, setFormData] = useState({
@@ -268,33 +269,36 @@ function Employees() {
             </div>
 
             {/* Add Employee Button */}
-            <button
-              onClick={() => {
-                setEditId(null);
+            {(role === "admin" || role === "hr") && (
+              <button
+                onClick={() => {
+                  setEditId(null);
 
-                setFormData({
-                  name: "",
-                  email: "",
-                  phone: "",
-                  department: "",
-                  designation: "",
-                  status: "",
-                });
+                  setFormData({
+                    name: "",
+                    email: "",
+                    phone: "",
+                    department: "",
+                    designation: "",
+                    status: "",
+                  });
 
-                setShowModal(true);
-              }}
-              style={{
-                background: "#007bff",
-                color: "#fff",
-                border: "none",
-                padding: "10px 20px",
-                borderRadius: "5px",
-                cursor: "pointer",
-              }}
-            >
-              Add Employee
-            </button>
+                  setShowModal(true);
+                }}
+                style={{
+                  background: "#007bff",
+                  color: "#fff",
+                  border: "none",
+                  padding: "10px 20px",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                }}
+              >
+                Add Employee
+              </button>
+            )}
           </div>
+          
 
           {/* Employee Modal */}
           {showModal && (
@@ -449,7 +453,7 @@ function Employees() {
                 <th>Department</th>
                 <th>Designation</th>
                 <th>Status</th>
-                <th>Actions</th>
+                {role === "admin" && <th>Actions</th>}
               </tr>
             </thead>
 
@@ -481,25 +485,29 @@ function Employees() {
                     >
                       {employee.status}
                     </td>
-
-                    <td>
-                      <FaEdit
-                        onClick={() => handleEdit(employee)}
-                        style={{
-                          color: "blue",
-                          cursor: "pointer",
-                          marginRight: "15px",
-                        }}
-                      />
-
-                      <FaTrash
-                        onClick={() => handleDelete(employee.id)}
-                        style={{
-                          color: "red",
-                          cursor: "pointer",
-                        }}
-                      />
-                    </td>
+                    {role === "admin" && (
+                      <td>
+                        {role === "admin" && (
+                          <FaEdit
+                            onClick={() => handleEdit(employee)}
+                            style={{
+                              color: "blue",
+                              cursor: "pointer",
+                              marginRight: "15px",
+                            }}
+                          />
+                        )}
+                        {role === "admin" && (
+                          <FaTrash
+                            onClick={() => handleDelete(employee.id)}
+                            style={{
+                              color: "red",
+                              cursor: "pointer",
+                            }}
+                          />
+                        )}
+                      </td>
+                    )}
                   </tr>
                 ))
               ) : (

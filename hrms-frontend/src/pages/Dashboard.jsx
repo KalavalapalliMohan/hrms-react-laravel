@@ -3,9 +3,27 @@ import Sidebar from "../components/Sidebar";
 import { Navigate } from "react-router-dom";
 
 
+function Card({ title, value }) {
+  return (
+    <div
+      style={{
+        background: "#f1f1f1",
+        padding: "20px",
+        borderRadius: "10px",
+        width: "200px",
+      }}
+    >
+      <h3>{title}</h3>
+      <p>{value}</p>
+    </div>
+  );
+}
+
 function Dashboard() {
 
     const token = localStorage.getItem("token");
+
+    const role = localStorage.getItem("role");
 
     if (!token) {
         return <Navigate to="/" />;
@@ -32,42 +50,29 @@ function Dashboard() {
                         gap: "20px",
                     }}>
 
-                        <div style={{
-                            background: "#f1f1f1",
-                            padding: "20px",
-                            borderRadius: "10px",
-                            width: "200px"
-                        }}>
-                            Employees: 117
-                        </div>
+                        {role === "admin" && (
+                            <>
+                            <Card title="Total Employees" value="120" />
+                            <Card title="Active Employees" value="117" />
+                            <Card title="Departments" value="5" />
+                            </>
+                        )}
 
-                        <div style={{
-                            background: "#f1f1f1",
-                            padding: "20px",
-                            borderRadius: "10px",
-                            width: "200px"
-                        }}>
-                            Attendance: 98%
-                        </div>
+                        {role === "hr" && (
+                            <>
+                            <Card title="Employees" value="120" />
+                            <Card title="Attendance" value="98%" />
+                            <Card title="Leaves" value="3" />
+                            </>
+                        )}
 
-                        <div style={{
-                            background: "#f1f1f1",
-                            padding: "20px",
-                            borderRadius: "10px",
-                            width: "200px"
-                        }}>
-                            Total Employees: 120
-                        </div>
-
-                        
-                        <div style={{
-                            background: "#f1f1f1",
-                            padding: "20px",
-                            borderRadius: "10px",
-                            width: "200px"
-                        }}>
-                            Leave Requests: 3
-                        </div>
+                        {role === "employee" && (
+                            <>
+                            <Card title="My Profile" value="View" />
+                            <Card title="My Attendance" value="95%" />
+                            <Card title="My Leaves" value="2" />
+                            </>
+                        )}
 
                     </div>
                 </div>

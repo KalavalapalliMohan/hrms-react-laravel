@@ -791,3 +791,131 @@ to display newest employees first.
 * REST API
 
 🚀 Continuing Full Stack Laravel + React Journey Day by Day.
+
+
+# Day 12 - Role Based Access Control (RBAC) in Laravel + React
+
+## Overview
+
+Implemented Role-Based Access Control (RBAC) for the HRMS project to restrict API access based on user roles.
+
+Roles supported:
+
+* Admin
+* HR
+* Employee
+
+## Features
+
+### Backend (Laravel)
+
+* Added `role` column to users table
+* Default role: `employee`
+* Created custom `RoleMiddleware`
+* Protected routes using role-based authorization
+* Integrated with Laravel Sanctum authentication
+
+### Roles & Permissions
+
+#### Admin
+
+* Create Employees
+* View Employees
+* Update Employees
+* Delete Employees
+
+#### HR
+
+* Create Employees
+* View Employees
+* Manage Employee Records
+
+Cannot:
+
+* Delete Employees
+
+#### Employee
+
+* View Own Profile
+* Access Personal Information
+
+Cannot:
+
+* Access Employee CRUD Operations
+
+## Middleware Example
+
+```php
+Route::middleware([
+    'auth:sanctum',
+    'role:admin'
+])->group(function () {
+
+    Route::delete(
+        '/employees/{id}',
+        [EmployeeController::class, 'destroy']
+    );
+
+});
+```
+
+## Frontend (React)
+
+Implemented role-based UI rendering.
+
+### Dashboard Cards
+
+#### Admin Dashboard
+
+* Total Employees
+* Active Employees
+* Departments
+
+#### HR Dashboard
+
+* Employees
+* Attendance
+* Leaves
+
+#### Employee Dashboard
+
+* My Profile
+* My Attendance
+* My Leaves
+
+### User Role Display
+
+```jsx
+Welcome Mohan
+Role: Admin
+```
+
+Role is stored after login using:
+
+```javascript
+localStorage.setItem(
+    "role",
+    response.data.user.role
+);
+```
+
+## Technologies Used
+
+* Laravel 12
+* Laravel Sanctum
+* React.js
+* Axios
+* MySQL
+
+## Learning Outcomes
+
+* Authentication vs Authorization
+* Role-Based Access Control (RBAC)
+* Laravel Middleware
+* Route Protection
+* Role-Based UI Rendering
+* Secure API Access
+
+## Project Status
+
+Day 12 Completed Successfully 🚀

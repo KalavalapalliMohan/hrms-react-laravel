@@ -548,3 +548,71 @@ GET /api/employees?search=mohan&department=IT&status=active
 * API Resources
 
 ---
+# Day 12 - Role Based Access Control (RBAC) in Laravel + React
+
+## Overview
+
+Implemented Role-Based Access Control (RBAC) for the HRMS project to restrict API access based on user roles.
+
+Roles supported:
+
+* Admin
+* HR
+* Employee
+
+## Features
+
+### Backend (Laravel)
+
+* Added `role` column to users table
+* Default role: `employee`
+* Created custom `RoleMiddleware`
+* Protected routes using role-based authorization
+* Integrated with Laravel Sanctum authentication
+
+### Roles & Permissions
+
+#### Admin
+
+* Create Employees
+* View Employees
+* Update Employees
+* Delete Employees
+
+#### HR
+
+* Create Employees
+* View Employees
+* Manage Employee Records
+
+Cannot:
+
+* Delete Employees
+
+#### Employee
+
+* View Own Profile
+* Access Personal Information
+
+Cannot:
+
+* Access Employee CRUD Operations
+
+## Middleware Example
+
+```php
+Route::middleware([
+    'auth:sanctum',
+    'role:admin'
+])->group(function () {
+
+    Route::delete(
+        '/employees/{id}',
+        [EmployeeController::class, 'destroy']
+    );
+
+});
+```
+## Project Status
+
+Day 12 Completed Successfully 🚀

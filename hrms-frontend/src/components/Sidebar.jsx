@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 
 function Sidebar() {
     const currentDate = new Date().toDateString();
+    const role = localStorage.getItem("role");
 
     const menuStyle = {
         padding: "10px",
@@ -34,20 +35,20 @@ function Sidebar() {
                         Dashboard
                     </NavLink>
                 </li>
-
-                <li>
-                    <NavLink
-                        to="/employees"
-                        style={({ isActive }) => ({
-                            ...menuStyle,
-                            backgroundColor: isActive ? "#007bff" : "#ddd",
-                            color: isActive ? "#fff" : "#000",
-                        })}
-                    >
-                        Employees
-                    </NavLink>
-                </li>
-
+                {(role === "admin" || role === "hr") && (
+                    <li>
+                        <NavLink
+                            to="/employees"
+                            style={({ isActive }) => ({
+                                ...menuStyle,
+                                backgroundColor: isActive ? "#007bff" : "#ddd",
+                                color: isActive ? "#fff" : "#000",
+                            })}
+                        >
+                            Employees
+                        </NavLink>
+                    </li>
+                )}
                 <li>
                     <NavLink
                         to="/attendance"
