@@ -790,3 +790,13 @@ localStorage.setItem(
 ## Project Status
 
 Day 12 Completed Successfully 🚀
+
+# Protected Routes (Day 13)
+
+If token exists:
+
+Dashboard
+
+Else:
+
+Login

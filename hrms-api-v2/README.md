@@ -616,3 +616,23 @@ Route::middleware([
 ## Project Status
 
 Day 12 Completed Successfully 🚀
+
+# HRMS API - Swagger Documentation (Day 13)
+This project includes Swagger/OpenAPI documentation for all authentication and employee APIs.
+
+## 🚀 Features
+- User Authentication (Register, Login, Logout)
+- Profile API (Protected Route)
+- Employee CRUD APIs
+- Swagger UI for API documentation
+
+## 📦 Installation
+
+```bash
+composer require darkaonline/l5-swagger
+
+php artisan vendor:publish --provider="L5Swagger\L5SwaggerServiceProvider"
+
+php artisan l5-swagger:generate
+
+http://127.0.0.1:8000/api/documentation
