@@ -1,3 +1,68 @@
+# React HRMS Frontend
+
+## Project Overview
+
+A React-based frontend application for HRMS that integrates with Laravel REST APIs. It provides authentication, dashboard management, employee listing, search, filters, and role-based access.
+
+## Features
+
+* Login Authentication
+* Protected Routes
+* Dashboard
+* Employee Management
+* Search Employees
+* Filter Employees
+* Axios API Integration
+* React Router Navigation
+* Responsive UI
+
+## Tech Stack
+
+* React
+* React Router DOM
+* Axios
+* Bootstrap
+
+## Setup Instructions
+
+1. Clone Repository
+
+git clone <repository-url>
+
+2. Install Packages
+
+npm install
+
+3. Configure API URL
+
+Update API base URL
+
+4. Start Application
+
+npm start
+
+## Screenshots
+
+Add screenshots inside:
+
+screenshots/
+
+* Login Page
+* Dashboard
+* Employee List
+* Swagger Documentation
+* Postman Collection
+
+## Author
+
+Mohan
+
+
+
+
+
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

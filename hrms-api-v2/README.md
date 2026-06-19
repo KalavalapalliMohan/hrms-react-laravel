@@ -1,3 +1,74 @@
+# Laravel HRMS API
+
+## Project Overview
+
+A Human Resource Management System (HRMS) REST API built using Laravel 12. The application provides secure authentication, role-based access control, employee management, search, filtering, pagination, and API documentation.
+
+## Features
+
+* Laravel Sanctum Authentication
+* Role-Based Access Control (Admin, HR, Employee)
+* Employee CRUD Operations
+* Search Employees
+* Filter Employees
+* Pagination Support
+* API Resources
+* Swagger/OpenAPI Documentation
+* Secure REST APIs
+
+## Tech Stack
+
+* Laravel 12
+* PHP 8+
+* MySQL
+* Laravel Sanctum
+* Swagger/OpenAPI
+* REST API
+
+## Installation
+
+1. Clone Repository
+
+git clone <repository-url>
+
+2. Install Dependencies
+
+composer install
+
+3. Copy Environment File
+
+cp .env.example .env
+
+4. Generate Key
+
+php artisan key:generate
+
+5. Configure Database
+
+Update .env file
+
+6. Run Migrations
+
+php artisan migrate --seed
+
+7. Start Server
+
+php artisan serve
+
+## API Documentation
+
+Swagger Documentation:
+
+http://localhost:8000/api/documentation
+
+## Author
+
+Mohan
+
+
+
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
@@ -636,3 +707,7 @@ php artisan vendor:publish --provider="L5Swagger\L5SwaggerServiceProvider"
 php artisan l5-swagger:generate
 
 http://127.0.0.1:8000/api/documentation
+
+
+
+

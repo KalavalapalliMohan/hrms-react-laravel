@@ -932,10 +932,159 @@ This project includes Swagger/OpenAPI documentation for all authentication and e
 ## 📦 Installation
 
 ```bash
-composer require darkaonline/l5-swagger
+# composer require darkaonline/l5-swagger
 
-php artisan vendor:publish --provider="L5Swagger\L5SwaggerServiceProvider"
+# php artisan vendor:publish --provider="L5Swagger\L5SwaggerServiceProvider"
 
-php artisan l5-swagger:generate
+# php artisan l5-swagger:generate
 
-http://127.0.0.1:8000/api/documentation
+# http://127.0.0.1:8000/api/documentation
+
+
+
+
+
+# Laravel HRMS API
+
+## Project Overview
+
+A Human Resource Management System (HRMS) REST API built using Laravel 12. The application provides secure authentication, role-based access control, employee management, search, filtering, pagination, and API documentation.
+
+## Features
+
+* Laravel Sanctum Authentication
+* Role-Based Access Control (Admin, HR, Employee)
+* Employee CRUD Operations
+* Search Employees
+* Filter Employees
+* Pagination Support
+* API Resources
+* Swagger/OpenAPI Documentation
+* Secure REST APIs
+
+## Tech Stack
+
+* Laravel 12
+* PHP 8+
+* MySQL
+* Laravel Sanctum
+* Swagger/OpenAPI
+* REST API
+
+## Installation
+
+1. Clone Repository
+
+git clone <repository-url>
+
+2. Install Dependencies
+
+composer install
+
+3. Copy Environment File
+
+cp .env.example .env
+
+4. Generate Key
+
+php artisan key:generate
+
+5. Configure Database
+
+Update .env file
+
+6. Run Migrations
+
+php artisan migrate --seed
+
+7. Start Server
+
+php artisan serve
+
+## API Documentation
+
+Swagger Documentation:
+
+http://localhost:8000/api/documentation
+
+## Author
+
+Mohan
+# React HRMS Frontend
+
+## Project Overview
+
+A React-based frontend application for HRMS that integrates with Laravel REST APIs. It provides authentication, dashboard management, employee listing, search, filters, and role-based access.
+
+## Features
+
+* Login Authentication
+* Protected Routes
+* Dashboard
+* Employee Management
+* Search Employees
+* Filter Employees
+* Axios API Integration
+* React Router Navigation
+* Responsive UI
+
+## Tech Stack
+
+* React
+* React Router DOM
+* Axios
+* Bootstrap
+
+## Setup Instructions
+
+1. Clone Repository
+
+git clone <repository-url>
+
+2. Install Packages
+
+npm install
+
+3. Configure API URL
+
+Update API base URL
+
+4. Start Application
+
+npm start
+
+## Screenshots
+
+Add screenshots inside:
+
+screenshots/
+
+* Login Page
+* Dashboard
+* Employee List
+* Swagger Documentation
+* Postman Collection
+
+## Author
+
+Mohan
+
+
+
+
+## Screenshots
+
+### Login Page
+![Login](screenshots/login-page.png)
+
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+### Employee List
+![Employees](screenshots/employee-list.png)
+
+### Swagger Documentation
+![Swagger](screenshots/swagger-docs.png)
+
+### Postman Collection
+![Postman](screenshots/postman-collection.png)
